@@ -50,15 +50,20 @@
     }
 
     function init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', renderResults);
-        } else {
-            renderResults();
+        // Verify the target element exists
+        var panel = document.getElementById('panel');
+        if (!panel) {
+            // Element not ready yet, wait for DOMContentLoaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            }
+            return;
         }
+        renderResults();
     }
 
-    // Render immediately when DOM is ready. i18n translations will be applied
-    // if/when they load; renderResults can work without them (uses English keys as fallback).
-    init();
+    // Use Promise.then to defer to next microtask, ensuring all deferred scripts
+    // have executed and DOM is fully ready (fixes Safari timing issues)
+    Promise.resolve().then(init);
 })();
 
