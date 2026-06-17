@@ -1,0 +1,59 @@
+@import "../components/buttons.css";
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 10svh;
+}
+body #visual {
+  width: 70%;
+  height: max-content;
+  margin-bottom: 10svh;
+}
+body h1 {
+  font-size: var(--fs-404);
+  font-weight: var(--fw-semibold);
+  line-height: 0.85;
+}
+body h3 {
+  font-size: var(--fs-tertiary);
+  font-weight: var(--fw-medium);
+  font-family: "MuseoModerno", cursive;
+}
+body p {
+  font-size: var(--fs-body);
+  padding: 2svh 0 4svh;
+}
+body button {
+  width: 100%;
+}
+
+@media screen and (min-width: 50em) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    text-align: left;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+    min-height: 100svh;
+    padding: 0;
+    gap: var(--fs-404);
+  }
+  body #visual {
+    width: 50%;
+    height: 30svh;
+    margin: 0;
+  }
+  body #content {
+    width: 40%;
+  }
+  body #content h3 {
+    font-size: var(--fs-primary);
+  }
+}
+
+/*# sourceMappingURL=404.css.map */

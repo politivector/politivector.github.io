@@ -1,69 +1,194 @@
-<html>
-	<head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>Politivector</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="data/questions.js"></script>
-    <script src="js/home_handler.js"></script>
-		<script src="js/redirect.js"></script>
-	</head>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
 
-	<body onload="homepageInit()">
-		<div class="pv_header page-header">
-      <div id="inner-header">
-        <img class="header-logo" src="images/Logo.png" alt="Politivector Logo">
-        Politivector
-      </div>
-    </div>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
 
-    <div id="start-test" class="banner">
-      <button class="start-test-button button" onclick="redirect('views/question.html')">
-        <h1>Start Test</h1>
-      </button>
-      <button class="dimensions-button button" onclick="redirect('views/dimensions.html')">
-        <h2 class="dimensions-button-text">Our Dimensions</h2>
-      </button>
-    </div>
-		
-    <div id="text-content">
-      <h2>What is <i>Politivector</i>?</h2>
-      <p>
-        <i>Politivector</i> is a test composed of general questions tailored to provide a relativistic summary of one’s political leanings.
-      </p>
-      <p>
-        The main intention behind Politivector is to create a more international alternative to preexisting political tests without country-specific language and concepts. We acknowledge that the political spectra for each country varies, and our goal is to visualize political tendencies in the most generic yet informative format possible.
-      </p>
-      <hr>
-  
-      <h2>How does it work?</h2>
-      <p>
-        <i>Politivector</i> is a test with <span id="question-amount"></span> multiple choice questions. In each question, you will be given a prompt or a statement related to politics, and will be asked your opinion on the matter ranging from <b>Strongly Agree</b> to <b>Strongly Disagree</b>.
-      </p>
-      <p>
-        Each answer will then affect your final score in their respective dimensions. You can go to the <a href="views/dimensions.html">Dimensions page</a> to learn more about the dimensions of interest available in <i>Politivector</i>.
-      </p>
-      <p>
-        Once the test is complete, you will be provided a visual summary of your political tendencies determined through your answers.
-      </p>
-      <hr/>
-  
-      <h2>Why is there no “Closest Match” in the results?</h2>
-      <p>
-        <i>Politivector</i> aims to present globally applicable results to every individual who takes this test, regardless of cultural and national background. It is our observation that the nomenclature used to categorize political alignment is location-dependent. In other words, the origin point of the political compass shifts for each country.
-      </p>
-      <p>
-        Henceforth, we have made the decision to exclude a “Closest Match” or ideological classification feature.
-      </p>
-      <hr/>
-  
-      <h2>Wait for more!</h2>
-      <p>
-        We have further plans for Politivector regarding the accuracy, scope, and content. Visit the <a href="views/future-plans.html">Future Plans page</a> periodically to keep your knowledge of your political tendencies up to date, and follow our progress with the capabilities of <i>Politivector</i>.
-      </p>
-    </div>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/index/index.css">
 
-    <footer>
-      Politivector 2021
-    </footer>
-	</body>
+    <!-- i18n must run before deferred scripts so window.__locale is available -->
+    <script src="scripts/_i18n.js"></script>
+    <script src="scripts/_menu.js" defer></script>
+    <script src="scripts/_language.js" defer></script>
+    <script src="scripts/_variant_font.js" defer></script>
+    <script src="scripts/_accordion.js" defer></script>
+    <script src="scripts/_select.js" defer></script>
+    <script src="scripts/_reveal.js" defer></script>
+</head>
+<body>
+<div id="select">
+    <div id="popup">
+        <svg id="popup-cancel" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="12" height="1.25" rx=".95" ry=".95"></rect>
+        </svg>
+        <p class="semi-bold" data-i18n="test-select-title"></p>
+        <button id="start-complete-button" class="button primary no-arrow"
+                data-i18n="test-select-complete-button"></button>
+        <p class="question-count" data-i18n="test-select-complete-info"></p>
+        <p data-i18n="test-select-divider"></p>
+        <button id="start-basic-button" class="button secondary no-arrow" data-i18n="test-select-basic-button"></button>
+        <p class="question-count" data-i18n="test-select-basic-info"></p>
+    </div>
+    <div id="overlay"></div>
+</div>
+<div class="grid-container">
+    <!-- nav -->
+    <header id="nav">
+        <div id="logo-container">
+
+            <p id="type-logo">politivector</p>
+        </div>
+        <svg id="menu-icon" viewBox="0 0 24 24" fill="var(--clr-text-primary)" class="closed">
+            <rect class="line top" x="3" y="6" width="18" height="2" rx=".95" ry=".95"></rect>
+            <rect class="line middle" x="3" y="11" width="18" height="2" rx=".95" ry=".95"></rect>
+            <rect class="line bottom" x="3" y="16" width="18" height="2" rx=".95" ry=".95"></rect>
+        </svg>
+    </header>
+    <div id="menu">
+        <ul id="menu-list">
+            <li><a class="link" href="index.html" data-i18n="menu-home"></a></li>
+            <li><a class="link" href="plans.html" data-i18n="menu-future-plans"></a></li>
+            <li>
+                <div id="language-selector"><!-- Generated by JS --></div>
+            </li>
+        </ul>
+    </div>
+    <!-- /nav -->
+
+    <div id="banner">
+        <h1 class="no-reveal" style="--delay: 200ms" data-i18n="banner-title"></h1>
+        <h2 class="no-reveal" style="--delay: 300ms" data-i18n="banner-subtitle"></h2>
+        <div class="button-container no-reveal" style="--delay: 400ms">
+            <button id="get-started" class="button primary" data-i18n="banner-button-primary"></button>
+            <button class="button secondary" onclick="window.location.href='plans.html'"
+                    data-i18n="banner-button-secondary"></button>
+        </div>
+    </div>
+    <div id="hero">
+        <object data="assets/index/illustrations/mobile/hero.svg" class="mobile no-reveal" style="--delay: 100ms"
+                type="image/svg+xml"></object>
+        <object data="assets/index/illustrations/desktop/hero.svg" class="desktop no-reveal" style="--delay: 500ms"
+                type="image/svg+xml"></object>
+    </div>
+    <div id="features">
+        <h3 class="no-reveal" style="--delay: 100ms" data-i18n="features-title"></h3>
+        <div class="feature-container">
+            <div class="feature no-reveal" style="--delay: 200ms">
+                <object data="assets/index/features/comprehensive.svg" class="feature-icon"
+                        type="image/svg+xml"></object>
+                <p class="feature-title" data-i18n="features-comprehensive-title"></p>
+                <p class="feature-text" data-i18n="features-comprehensive-text"></p>
+            </div>
+            <div class="feature no-reveal" style="--delay: 300ms">
+                <object data="assets/index/features/international.svg" class="feature-icon"
+                        type="image/svg+xml"></object>
+                <p class="feature-title" data-i18n="features-international-title"></p>
+                <p class="feature-text" data-i18n="features-international-text"></p>
+            </div>
+            <div class="feature no-reveal" style="--delay: 400ms">
+                <object data="assets/index/features/anonymous.svg" class="feature-icon" type="image/svg+xml"></object>
+                <p class="feature-title" data-i18n="features-anonymous-title"></p>
+                <p class="feature-text" data-i18n="features-anonymous-text"></p>
+            </div>
+            <div class="feature no-reveal" style="--delay: 500ms">
+                <object data="assets/index/features/evolving.svg" class="feature-icon" type="image/svg+xml"></object>
+                <p class="feature-title" data-i18n="features-evolving-title"></p>
+                <p class="feature-text" data-i18n="features-evolving-text"></p>
+            </div>
+        </div>
+    </div>
+    <div id="visual-info">
+        <object data="assets/index/illustrations/mobile/visual-info.svg" class="mobile no-reveal" style="--delay: 100ms"
+                type="image/svg+xml"></object>
+        <object data="assets/index/illustrations/desktop/visual-info.svg" class="desktop no-reveal"
+                style="--delay: 100ms" type="image/svg+xml"></object>
+    </div>
+    <div id="info">
+        <h3 class="no-reveal" style="--delay: 100ms" data-i18n="info-title"></h3>
+        <div class="dropdown">
+            <div class="accordion-item no-reveal" style="--delay: 200ms">
+                <div class="accordion-title">
+                    <p data-i18n="info-accordion-title-1"></p>
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <rect width="24" height="24" transform="rotate(-90 12 12)" opacity="0"/>
+                        <path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z"/>
+                    </svg>
+                </div>
+                <div class="accordion-text"><p data-i18n="info-accordion-text-1"></p></div>
+            </div>
+            <div class="accordion-item no-reveal" style="--delay: 300ms">
+                <div class="accordion-title">
+                    <p data-i18n="info-accordion-title-2"></p>
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <rect width="24" height="24" transform="rotate(-90 12 12)" opacity="0"/>
+                        <path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z"/>
+                    </svg>
+                </div>
+                <div class="accordion-text"><p data-i18n="info-accordion-text-2"></p></div>
+            </div>
+            <div class="accordion-item no-reveal" style="--delay: 400ms">
+                <div class="accordion-title">
+                    <p data-i18n="info-accordion-title-3"></p>
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <rect width="24" height="24" transform="rotate(-90 12 12)" opacity="0"/>
+                        <path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z"/>
+                    </svg>
+                </div>
+                <div class="accordion-text"><p data-i18n="info-accordion-text-3"></p></div>
+            </div>
+        </div>
+    </div>
+    <div id="goals">
+        <h3 class="no-reveal" style="--delay: 100ms" data-i18n="goals-title"></h3>
+        <div class="paragraph-item no-reveal" style="--delay: 200ms">
+            <p class="semi-bold" data-i18n="goals-experience-title"></p>
+            <p data-i18n="goals-experience-text"></p>
+        </div>
+        <div class="paragraph-item no-reveal" style="--delay: 300ms">
+            <p class="semi-bold" data-i18n="goals-data-title"></p>
+            <p data-i18n="goals-data-text"></p>
+        </div>
+        <div class="paragraph-item no-reveal" style="--delay: 400ms">
+            <p class="semi-bold" data-i18n="goals-reports-title"></p>
+            <p data-i18n="goals-reports-text"></p>
+        </div>
+    </div>
+    <div id="visual-goals">
+        <object data="assets/index/illustrations/desktop/visual-goals.svg" class="desktop no-reveal"
+                style="--delay: 100ms" type="image/svg+xml"></object>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="footer-list">
+            <div class="footer-item">
+                <a href="index.html" class="semi-bold" data-i18n="footer-home"></a>
+                <a href="index.html#features" data-i18n="footer-home-features"></a>
+                <a href="index.html#info" data-i18n="footer-home-information"></a>
+                <a href="index.html#goals" data-i18n="footer-home-goals"></a>
+            </div>
+            <div class="footer-item">
+                <a href="plans.html" class="semi-bold" data-i18n="footer-plans"></a>
+                <a href="plans.html#questions" data-i18n="footer-plans-questions"></a>
+                <a href="plans.html#data" data-i18n="footer-plans-data"></a>
+                <a href="plans.html#results" data-i18n="footer-plans-results"></a>
+            </div>
+            <div class="footer-item">
+                <p class="semi-bold" data-i18n="footer-test"></p>
+                <a href="start.html?test=complete" data-i18n="footer-test-complete"></a>
+                <a href="start.html?test=basic" data-i18n="footer-test-basic"></a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
 </html>
+

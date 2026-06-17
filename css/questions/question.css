@@ -1,0 +1,35 @@
+#question {
+  display: flex;
+  justify-content: center;
+}
+#question #card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--fs-tertiary) * 1.5);
+  text-align: center;
+  height: 90%;
+  width: 100%;
+  max-height: 540px;
+  max-width: 620px;
+  padding: 3vh;
+}
+#question #card #question-text {
+  font-size: var(--fs-body);
+  height: calc(var(--fs-body) * 4 * 1.5);
+}
+#question #card .button-container {
+  gap: calc(var(--fs-button) / 1.25);
+}
+
+@media screen and (min-width: 50em) {
+  #question #card {
+    width: 50%;
+  }
+  #question #card .button-container {
+    flex-direction: column;
+  }
+}
+
+/*# sourceMappingURL=question.css.map */

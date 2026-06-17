@@ -1,0 +1,95 @@
+header {
+  height: 100%;
+  min-height: 50px;
+  max-height: 75px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  #logo-container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: visible;
+
+    #home-icon {
+      height: 50%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+
+      #rim {
+        z-index: 1;
+        transform-origin: center;
+        transition: transform 300ms ease-in-out;
+      }
+    }
+
+    #type-logo {
+      display: none;
+      font-family: 'MuseoModerno', cursive;
+      font-size: var(--fs-tertiary);
+      font-weight: var(--fw-medium);
+      z-index: 0;
+      margin-left: 0;
+      padding-left: 5%;
+    }
+
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  #menu-icon {
+    cursor: pointer;
+    height: 50%;
+    max-width: 75px;
+
+    .line {
+      transform-origin: center;
+    }
+  }
+}
+
+.open {
+  .top {
+    transform: translateY(20.8333%);
+    rotate: 45deg;
+  }
+
+  .middle {
+    opacity: 0;
+  }
+
+  .bottom {
+    transform: translateY(-20.8333%);
+    rotate: -45deg;
+  }
+}
+
+@media screen and (min-width: 50em) {
+  header {
+    #logo-container {
+      #type-logo {
+        display: inline-block;
+      }
+
+      #home-icon {
+        height: 50%;
+      }
+    }
+
+    #menu-icon {
+      display: none;
+    }
+
+    &:hover {
+      #home-icon {
+        #rim {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}

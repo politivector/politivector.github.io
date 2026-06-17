@@ -1,0 +1,22 @@
+(function () {
+    function applyVariantFont() {
+        const elems = document.querySelectorAll('h1, h3, h4, .rail-name');
+        for (const e of elems) {
+            const regex = /([Gw])/g;
+            e.innerHTML = e.innerHTML.replaceAll(regex, (char) => {
+                const span = document.createElement('span');
+                span.style.setProperty('font-feature-settings', '"ss01"');
+                span.innerText = char;
+                return span.outerHTML;
+            });
+        }
+    }
+
+    // Must run AFTER i18n has filled in the heading text, otherwise elements are empty.
+    if (window.__i18nData) {
+        // Translations already applied synchronously (rare, but handle it)
+        applyVariantFont();
+    } else {
+        window.addEventListener('i18nReady', applyVariantFont);
+    }
+})();

@@ -1,0 +1,149 @@
+@import "../components/buttons.css";
+@import "../components/footer.css";
+@import "../components/menu.css";
+@import "../components/nav.css";
+@import "../components/select.css";
+
+@import "banner.css";
+@import "features.css";
+@import "goals.css";
+@import "illustrations.css";
+@import "info.css";
+
+.grid-container {
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+#nav,
+#menu,
+#banner,
+#hero,
+#features,
+#info,
+#visual-info,
+#goals {
+  grid-column: 1 / span 5;
+}
+
+#nav {
+  order: 0;
+  height: 10svh;
+  min-height: 50px;
+  max-height: 75px;
+}
+
+#menu {
+  overflow: clip;
+  order: 1;
+
+  transition: height 300ms ease-in-out;
+}
+
+#banner {
+  order: 3;
+  height: 40svh;
+  min-height: 200px;
+  max-height: 700px;
+  padding: 3svh 0;
+}
+
+#hero {
+  order: 2;
+  height: 45svh;
+  min-height: 200px;
+  max-height: 700px;
+  margin-top: 2svh;
+}
+
+#features {
+  order: 4;
+  margin-top: 10svh;
+}
+
+#visual-info {
+  order: 6;
+  margin-top: 10svh;
+}
+
+#info {
+  order: 5;
+  margin-top: 10svh;
+}
+
+#goals {
+  order: 7;
+  margin-top: 10svh;
+}
+
+#visual-goals {
+  display: none;
+  order: 8;
+}
+
+footer {
+  margin-top: 10svh;
+}
+
+@media screen and (min-width: 50em) {
+  #nav {
+    grid-column: 1 / span 1;
+    height: 10svh;
+  }
+
+  #menu {
+    grid-column: 2 / span 4;
+    height: 10svh;
+    min-height: 50px;
+    max-height: 75px;
+
+    transition: none;
+  }
+
+  #banner {
+    grid-column: 1 / span 3;
+    order: 1;
+    height: 90svh;
+    padding: 12.5svh 0;
+  }
+
+  #hero {
+    grid-column: 4 / span 2;
+    order: 2;
+    height: 90svh;
+    padding-top: 7.5svh;
+    padding-bottom: 12.5svh;
+  }
+
+  #visual-info {
+    grid-column: 1 / span 2;
+    order: 4;
+    margin-top: 15svh;
+  }
+
+  #info {
+    grid-column: 3 / span 3;
+    order: 5;
+    margin-top: 15svh;
+  }
+
+  #goals {
+    grid-column: 1 / span 3;
+    margin-top: 10svh;
+  }
+
+  #visual-goals {
+    grid-column: 4 / span 2;
+    display: block;
+    margin-top: 10svh;
+  }
+
+  footer {
+    height: auto;
+  }
+}
