@@ -9,22 +9,22 @@
         return '<div class="axis no-reveal" style="--delay:' + delay + 'ms">' +
             '<img src="' + leftDim.imageSrc + '" alt="' + t(leftDim.name) + ' ' + t('icon') + '">' +
             '<div class="rail left-aligned" style="background-color:#' + leftDim.color + ';width:' + calculateWidth(leftPercent) + ';' + (leftPercent > 0 ? '' : 'padding-right:0;') + '">' +
-                '<span class="rail-name">' + t(leftDim.name) + '</span>' +
-                '<span class="rail-percent" style="' + (leftPercent > 0 ? '' : 'display:none;') + '">' + leftPercent + '%</span>' +
+            '<span class="rail-name">' + t(leftDim.name) + '</span>' +
+            '<span class="rail-percent" style="' + (leftPercent > 0 ? '' : 'display:none;') + '">' + leftPercent + '%</span>' +
             '</div>' +
             neutralHtml +
             '<div class="rail right-aligned" style="background-color:#' + rightDim.color + ';width:' + calculateWidth(rightPercent) + ';' + (rightPercent > 0 ? '' : 'padding-left:0;') + '">' +
-                '<span class="rail-name">' + t(rightDim.name) + '</span>' +
-                '<span class="rail-percent" style="' + (rightPercent > 0 ? '' : 'display:none;') + '">' + rightPercent + '%</span>' +
+            '<span class="rail-name">' + t(rightDim.name) + '</span>' +
+            '<span class="rail-percent" style="' + (rightPercent > 0 ? '' : 'display:none;') + '">' + rightPercent + '%</span>' +
             '</div>' +
             '<img src="' + rightDim.imageSrc + '" alt="' + rightDim.name + ' ' + t('icon') + '">' +
-        '</div>';
+            '</div>';
     }
 
     function renderResults() {
         var params = new URLSearchParams(window.location.search);
         // Build a plain object of query params for generateScoresMap
-        var resultsQuery = { test: params.get('test') };
+        var resultsQuery = {test: params.get('test')};
         params.forEach(function (value, key) {
             if (key !== 'test' && key !== 'lang') resultsQuery[key] = value;
         });
@@ -49,19 +49,35 @@
         panel.innerHTML = html;
     }
 
-    function init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', renderResults);
-        } else {
+    var _domReady = false;
+    var _i18nReady = false;
+    var _rendered = false;
+
+    function tryRender() {
+        if (_domReady && _i18nReady && !_rendered) {
+            _rendered = true;
             renderResults();
         }
     }
 
-    // Wait for i18n translations before rendering so dimension names are translated
-    if (window.__i18nData) {
-        init();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            _domReady = true;
+            tryRender();
+        });
     } else {
-        window.addEventListener('i18nReady', init);
+        _domReady = true;
     }
+
+    if (window.__i18nData) {
+        _i18nReady = true;
+    } else {
+        window.addEventListener('i18nReady', function () {
+            _i18nReady = true;
+            tryRender();
+        });
+    }
+
+    tryRender();
 })();
 
