@@ -49,35 +49,16 @@
         panel.innerHTML = html;
     }
 
-    var _domReady = false;
-    var _i18nReady = false;
-    var _rendered = false;
-
-    function tryRender() {
-        if (_domReady && _i18nReady && !_rendered) {
-            _rendered = true;
+    function init() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', renderResults);
+        } else {
             renderResults();
         }
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () {
-            _domReady = true;
-            tryRender();
-        });
-    } else {
-        _domReady = true;
-    }
-
-    if (window.__i18nData) {
-        _i18nReady = true;
-    } else {
-        window.addEventListener('i18nReady', function () {
-            _i18nReady = true;
-            tryRender();
-        });
-    }
-
-    tryRender();
+    // Render immediately when DOM is ready. i18n translations will be applied
+    // if/when they load; renderResults can work without them (uses English keys as fallback).
+    init();
 })();
 
